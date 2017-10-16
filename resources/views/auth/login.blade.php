@@ -1,7 +1,29 @@
 @extends('layouts.app')
 
+@section('css')
+    @parent
+<style type="text/css">
+    html, body {
+        margin: 0;
+        height: 100%;
+    }
+    body {
+        background: url('/img/hospital-background-0.jpg') no-repeat;
+        background-size: 100% 100%;
+    }
+    .login-logo a {
+        color: #ffffff;
+    }
+</style>
+@endsection
+
 @section('content')
 <div class="container">
+    <div class="row" style="text-align:center">
+        <div style="margin:2.5em auto;width:200px;height:200px;">
+            <img src="/img/icon.png" class="img-responsive" style="border-radius:5px"/>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
@@ -55,9 +77,9 @@
                                     Login
                                 </button>
 
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                <!--<a class="btn btn-link" href="{{ route('password.request') }}">
                                     Forgot Your Password?
-                                </a>
+                                </a>-->
                             </div>
                         </div>
                     </form>

@@ -11,10 +11,43 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
+
+Route::get('/', 'HomeController@index');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['middleware' => ['auth']], function()
+{
+    Route::group(['namespace' => 'Admin'], function() {
+        Route::group(['middleware' => ['role:admin']], function()
+        {
+            Route::resource('admin/users', 'UsersController');
+        });
+    });
+    
+    Route::group(['middleware' => ['role:admin,operator']], function()
+    {
+        Route::resource('doctors', 'DoctorsController');
+            
+        Route::get('searchpatient', 'PatientController@ShowSearch');
+            
+        Route::get('searchpatientform', 'PatientController@SearchPatient');
+            
+        Route::get('showreferred/{id}', 'PatientController@ShowReferredPatient');
+        
+        Route::post('updatereferred/{id}', 'PatientController@ReferredPatientEntry');
+    });
+    
+});
+
+/*Route::group(['middleware' => ['role:admin']], function()
+{
+    //Route::resource('admin/users', 'UsersController');
+});*/
+    
+
