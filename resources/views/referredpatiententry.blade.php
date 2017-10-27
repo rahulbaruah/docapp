@@ -35,7 +35,7 @@ if(count($errors) > 0){ $msg = $errors->all(); }
 	    <div class="col-md-4"><strong>Doctor Referred By:</strong></div><div class="col-md-8">{{ $referred->doctor->name }}</div>
 	    </div>
 	    <div class="row">
-	    <div class="col-md-4"><strong>Discount:</strong></div><div class="col-md-8">{{ $referred->discount }}</div>
+	    <div class="col-md-4"><strong>Discount:</strong></div><div class="col-md-8">{{ $referred->discount ? $referred->discount.'%' : '' }}</div>
 	    </div>
 	    <div class="row">
 	    <div class="col-md-4"><strong>Referred Date:</strong></div><div class="col-md-8">{{ ConvertDate($referred->created_at) }}</div>
