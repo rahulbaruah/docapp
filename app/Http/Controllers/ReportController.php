@@ -16,14 +16,14 @@ class ReportController extends Controller
         $queryToday = Referred::where('referred_user_id',$request->user()->id)
                                 ->whereDate('created_at', $date);
         
-        $todayTotalPatients = $queryToday->count();
+        //$todayTotalPatients = $queryToday->count();
         
         $todayPatients = $queryToday->whereDate('arrived_at', $date)
                                 ->count();
                                 
         $commission = $queryToday->sum('commission');
         
-        $data = [ 'todayPatients' => $todayPatients, 'todayTotalPatients' => $todayTotalPatients, 'todayTotalCollection' => $commission ];
+        $data = [ 'todayPatients' => $todayPatients, 'todayTotalPatients' => $todayPatients, 'todayTotalCollection' => $commission ];
         
         //Log::info($data);
         
@@ -42,14 +42,14 @@ class ReportController extends Controller
         $queryToday = Referred::where('referred_user_id',$request->user()->id)
                                 ->whereDate('created_at', '>=', $yesterday);
         
-        $last2daysTotalPatients = $queryToday->count();
+        //$last2daysTotalPatients = $queryToday->count();
         
         $last2daysPatients = $queryToday->whereDate('arrived_at', '!=', 0)
                                 ->count();
         
         $commission = $queryToday->sum('commission');
         
-        $data = [ 'last2daysPatients' => $last2daysPatients, 'last2daysTotalPatients' => $last2daysTotalPatients, 'last2daysTotalCollection' => $commission ];
+        $data = [ 'last2daysPatients' => $last2daysPatients, 'last2daysTotalPatients' => $last2daysPatients, 'last2daysTotalCollection' => $commission ];
         
         if($request -> ajax() || $request->is('api/*')){
 			return response()->json($data);
@@ -75,14 +75,14 @@ class ReportController extends Controller
                                 ->whereDate('created_at', '>=', $start_date)
                                 ->whereDate('created_at', '<=', $end_date);
         
-        $totalPatientsReport = $query->count();
+        //$totalPatientsReport = $query->count();
         
         $patientsReport = $query->whereDate('arrived_at', '!=', 0)
                                 ->count();
                                 
         $commission = $query->sum('commission');
         
-        $data = [ 'patientsReport' => $patientsReport, 'totalPatientsReport' => $totalPatientsReport, 'totalCollection' => $commission ];
+        $data = [ 'patientsReport' => $patientsReport, 'totalPatientsReport' => $patientsReport, 'totalCollection' => $commission ];
         
         if($request -> ajax() || $request->is('api/*')){
 			return response()->json($data);

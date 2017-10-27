@@ -59,9 +59,9 @@ if(count($errors) > 0){ $msg = $errors->all(); }
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-4 control-label">Discount:</label>
+				<label class="col-sm-4 control-label">Discount(%):</label>
 				<div class="col-sm-8">
-					<textarea name="description" class="form-control"></textarea>
+					<input type="text" name="discount" class="form-control">
 				</div>
 			</div>
 	</div>

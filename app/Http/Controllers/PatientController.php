@@ -137,8 +137,11 @@ class PatientController extends Controller
         $this->validate($request, [
 			'name' => 'required',
 			'phone' => 'required|digits:10',
+			'discount' => 'numeric|max:45',
 		],[
             'phone.digits' => 'Please enter a valid phone number',
+            'discount.numeric' => 'Please enter the discount in numbers only',
+            'discount.max' => 'Maximum discount available is 45%',
         ]);
         
         $name = $request->input('name');
@@ -152,18 +155,18 @@ class PatientController extends Controller
 		    
 		    $referred = new Referred;
     		$referred->patient_id = $patient->id;
-    		$referred->description = $request->input('description');
-    		//$referred->discount = $request->input('discount');
+    		//$referred->description = $request->input('description');
+    		$referred->discount = $request->input('discount');
     		$referred->referred_user_id = $request->input('doctor_id');
     		$referred->save();
     		
 		} else {
 		    
-		    $this->validate($request, [
+		    /*$this->validate($request, [
     			'phone' => 'unique:patients,phone',
     		],[
                 'phone.unique' => 'This phone number is already registered with another patient',
-            ]);
+            ]);*/
 		    
 		    $patient = new Patient;
     		$patient->name = $request->input('name');
@@ -172,8 +175,8 @@ class PatientController extends Controller
     		
     		$referred = new Referred;
     		$referred->patient_id = $patient->id;
-    		$referred->description = $request->input('description');
-    		//$referred->discount = $request->input('discount');
+    		//$referred->description = $request->input('description');
+    		$referred->discount = $request->input('discount');
     		$referred->referred_user_id = $request->input('doctor_id');
     		$referred->save();
     		

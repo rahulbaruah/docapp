@@ -57,7 +57,7 @@ if(count($errors) > 0){ $msg = $errors->all(); }
 			</script>
 			@endsection
 	   		<div class="form-group">
-				<label class="col-sm-4 control-label">Doctor's Commission (<i class="fa fa-inr"></i>):</label>
+				<label class="col-sm-4 control-label">Doctor's Collection (<i class="fa fa-inr"></i>):</label>
 				<div class="col-sm-8">
 					<input type="text" class="form-control" name="commission" value="{{$referred->commission}}">
 				</div>
