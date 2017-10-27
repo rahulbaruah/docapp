@@ -41,6 +41,10 @@ Route::group(['middleware' => ['auth']], function()
         Route::get('showreferred/{id}', 'PatientController@ShowReferredPatient');
         
         Route::post('updatereferred/{id}', 'PatientController@ReferredPatientEntry');
+        
+        Route::get('newpatient', 'PatientController@ShowNewPatientForm');
+        
+        Route::post('newpatient', 'PatientController@ReferPatientAdmin');
     });
     
 });

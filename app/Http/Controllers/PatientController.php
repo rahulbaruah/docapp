@@ -124,4 +124,63 @@ class PatientController extends Controller
 		$data = ["msg" => ["Referred patient entry successfully"]];
 		return redirect()->back()->with($data);
     }
+    
+    public function ShowNewPatientForm() {
+        $doctors = User::where('type','doctor')
+    					->get();
+    	
+    	$data = [ "doctors" => $doctors ];
+        return view('newpatient')->with($data);
+    }
+    
+    public function ReferPatientAdmin(Request $request) {
+        $this->validate($request, [
+			'name' => 'required',
+			'phone' => 'required|digits:10',
+		],[
+            'phone.digits' => 'Please enter a valid phone number',
+        ]);
+        
+        $name = $request->input('name');
+        $phone = $request->input('phone');
+		
+		$patient = Patient::where('name',$name)
+		                    ->where('phone',$phone)
+		                    ->first();
+		
+		if($patient) {
+		    
+		    $referred = new Referred;
+    		$referred->patient_id = $patient->id;
+    		$referred->description = $request->input('description');
+    		//$referred->discount = $request->input('discount');
+    		$referred->referred_user_id = $request->input('doctor_id');
+    		$referred->save();
+    		
+		} else {
+		    
+		    $this->validate($request, [
+    			'phone' => 'unique:patients,phone',
+    		],[
+                'phone.unique' => 'This phone number is already registered with another patient',
+            ]);
+		    
+		    $patient = new Patient;
+    		$patient->name = $request->input('name');
+    		$patient->phone = $request->input('phone');
+    		$patient->save();
+    		
+    		$referred = new Referred;
+    		$referred->patient_id = $patient->id;
+    		$referred->description = $request->input('description');
+    		//$referred->discount = $request->input('discount');
+    		$referred->referred_user_id = $request->input('doctor_id');
+    		$referred->save();
+    		
+		}
+		
+		$msg[] = 'Patient referred successfully.';
+		
+		return redirect('showreferred/'.$referred->id)->with($msg);
+    }
 }

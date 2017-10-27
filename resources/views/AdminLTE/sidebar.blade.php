@@ -31,7 +31,13 @@
                         </ul>
                     </li>
                     
-                    <li><a href="/searchpatient"><i class="fa fa-hospital-o"></i> <span>Referred Patient Entry</span></a></li>
+                    <li class="treeview">
+                        <a href="#"><i class="fa fa-hospital-o pull-left"></i> <span>Patients</span> <i class="fa fa-angle-left pull-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li><a href="/newpatient">New Patient Entry</a></li>
+                            <li><a href="/searchpatient">Referred Patient Entry</a></li>
+                        </ul>
+                    </li>
                 </ul><!-- /.sidebar-menu -->
             </section>
             <!-- /.sidebar -->
