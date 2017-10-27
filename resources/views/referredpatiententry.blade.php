@@ -31,7 +31,7 @@ if(count($errors) > 0){ $msg = $errors->all(); }
 	    <div class="row">
 	    <p><span class="col-md-4"><strong>Patient Name:</strong></span> {{ $referred->patient->name }}</p>
 	    <p><span class="col-md-4"><strong>Doctor Referred By:</strong></span> {{ $referred->doctor->name }}</p>
-	    <p><span class="col-md-4"><strong>Discount:</strong></span> {{ $referred->description }}</p>
+	    <p><span class="col-md-4"><strong>Discount:</strong></span> {{ $referred->discount }}</p>
 	    <p><span class="col-md-4"><strong>Referred Date:</strong></span> {{ ConvertDate($referred->created_at) }}</p>
 	    </div>
 	</div>
