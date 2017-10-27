@@ -15,11 +15,15 @@ class PatientController extends Controller
         if($request->user()->type != 'doctor'){
             return response()->json(['errors'=>['Only a doctor can refer a patient']], 422);
         }
+        
         $this->validate($request, [
 			'name' => 'required',
 			'phone' => 'required|digits:10',
+			'discount' => 'numeric|max:45',
 		],[
             'phone.digits' => 'Please enter a valid phone number',
+            'discount.numeric' => 'Please enter the discount in numbers only',
+            'discount.max' => 'Maximum discount available is 45%',
         ]);
         
         $name = $request->input('name');
@@ -33,28 +37,28 @@ class PatientController extends Controller
 		    
 		    $referred = new Referred;
     		$referred->patient_id = $patient->id;
-    		$referred->description = $request->input('description');
-    		//$referred->discount = $request->input('discount');
+    		//$referred->description = $request->input('description');
+    		$referred->discount = $request->input('discount');
     		$referred->referred_user_id = $request->user()->id;
     		$referred->save();
     		
 		} else {
 		    
-		    $this->validate($request, [
+		    /*$this->validate($request, [
     			'phone' => 'unique:patients,phone',
     		],[
                 'phone.unique' => 'This phone number is already registered with another patient',
-            ]);
+            ]);*/
 		    
 		    $patient = new Patient;
-    		$patient->name = $request->input('name');
-    		$patient->phone = $request->input('phone');
+    		$patient->name = $name;
+    		$patient->phone = $phone;
     		$patient->save();
     		
     		$referred = new Referred;
     		$referred->patient_id = $patient->id;
-    		$referred->description = $request->input('description');
-    		//$referred->discount = $request->input('discount');
+    		//$referred->description = $request->input('description');
+    		$referred->discount = $request->input('discount');
     		$referred->referred_user_id = $request->user()->id;
     		$referred->save();
     		
@@ -169,8 +173,8 @@ class PatientController extends Controller
             ]);*/
 		    
 		    $patient = new Patient;
-    		$patient->name = $request->input('name');
-    		$patient->phone = $request->input('phone');
+    		$patient->name = $name;
+    		$patient->phone = $phone;
     		$patient->save();
     		
     		$referred = new Referred;
